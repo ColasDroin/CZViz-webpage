@@ -1,0 +1,4 @@
+AuthName "Protected page"
+AuthType Basic
+AuthUserFile "/home/droin/webpage/.htpasswd"
+Require valid-user

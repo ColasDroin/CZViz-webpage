@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="CircaViz: a web app for circadian visualization">
+    <meta name="author" content="Colas Droin">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>CZViz: a web app for Circadian Zonation Visualization</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+      p {
+        text-align: justify;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a href="index.html"><img style="height:40px" src="img/logo_UPNA_transparent2.png"/></a>
+        <a class="navbar-brand" href="index.html">CZViz: a web app for Circadian Zonation Visualization</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">CZViz
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="analysis.html">Analysis</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="doc.html">Documentation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="mt-5">Analysis </h1>
+        </div>
+      </div>
+
+      <h2 style="margin:40px 0px 0px 0px;">Data</h2>
+      <h5 style="margin:10px 0px 10px 20px;">Description</h5>
+      <p style="margin:0px 0px 0px 20px;">The data represents the expression of a gene in fraction of total UMI per cell at each position along
+        the porto-central axis of a mouse liver lobule, at different time of the day. The lobule is divided in 8 layers, from pericentral (layer 1)
+        to periportal (layer 8) zone. The spatial profiles were reconstructed from single-cell RNA-seq data of dissociated hepatocytes.
+        Mice were taken at 4 timepoints: ZT0 (light on, dawn, n = 3), ZT06 (n = 2), ZT12 (light off, dusk, n = 3) and ZT18 (n = 2).</p>
+      <p style="margin:0px 0px 0px 20px;">The reconstruction of the 14’678 gene profiles is based on the already known spatial profiles of a set of
+        landmarks from <i>Bahar-Halpern and Shenhav et al.</i> (Nature 2017). 27 central genes (such as Cyp2d9, Gsta3 and Slc22a1) and 28 portal genes
+        (such as Asl, Ass1 and Fdas1) with high amount of spatial information and low temporal variation were chosen for the reconstruction.</p>
+
+        <p style="margin:0px 0px 0px 20px;">First,
+        each gene was normalised to the sum of all non-mitochondrial and non-Mup genes, and then normalised to its maximal expression over all
+        cells to avoid a bias due to the presence of highly abundant genes. Then, for each cell, the summed expression of all the portal landmark
+        genes was divided by the sum of the portal and central landmark genes. The resulting value, comprised between 0 and 1, reflects the
+        cell position. The distribution of these values is compared to those of the cells from <i>Bahar-Halpern et al.</i> (whose position are known),
+        to obtain a matrix of probability of each cell to reside in a layer. Finally, by multiplying this matrix to the original expression matrix,
+        it is possible to infer the mean expression level of a gene at each layer. The reconstruction was done for each mouse at each timepoint. </p>
+
+      <!--<p style="margin:0px 0px 0px 20px;"> Sc-RNA-seq data were generated and profiles reconstructed were done by S. Itzkovitz lab (Weizmann Insitute, Rehovot, Israel).</p>-->
+
+      <h5 style="margin:10px 0px 10px 20px;">Pre-treatment</h5>
+      <p style="margin:0px 0px 0px 20px;">
+        In order to ease the analysis, the data is first log-transfomed according to the following formula ( \(x\) being a datapoint):
+        $$ x := \text{log}_2(x+\epsilon)+A $$
+        Here, the offset \(\epsilon\) is equal to \(10^{-4}\) while the shift \(A\) is equal to \(11 \times 10^{-5}\). \(\epsilon\) is chosen in order to buffer lowly expressed genes against noise,
+        while the value of \(A\) is taken such that, if the filtering condition removes every gene profile whose maximum value is equal or below \(10^{-4}\), then the lowliest expressed genes of the
+        dataset have their highest datapoint at \(0\) after transformation.
+      </p>
+      <!--<p style="margin:0px 0px 0px 20px;">
+        Different filtering conditions are then possible: remove low expression, remove flat replicates, remove genes with low consistency among replicates etc.
+      </p>-->
+
+      <h2 style="margin:40px 0px 0px 0px;">Different types of regressions</h2>
+      <h5 style="margin:10px 0px 10px 20px;">Regression on the spatial profiles</h5>
+      <p style="margin:0px 0px 0px 20px;">
+      In order to assess the zonated character of a given gene for a given time condition, we apply a linear regression using ordinary least squares on the data with a polynomial regression to each time condition,
+      using <a href="https://en.wikipedia.org/wiki/Legendre_polynomials">Legendre polynomials</a>, keeping coefficients until degree two. We use a hierarchical model, since each replicate corresponds to a different animal,
+      but each animal provides the data for the 8 layers of the liver. The model is therefore (for a given time condition):
+      $$Y_{x,i} = \mu_0 + \mu_{0,i} +  \mu_1 P_1(x) + \mu_2 P_2(x) + \epsilon_{x,i} $$
+
+      In this equation, \(\mu_0, \mu_1, \mu_2 \) correspond to the fixed effect of the model, while \(\mu_{0,i}\) is an animal-specific intercept. The \(P_i\) terms correspond to the Legendre polynomials of degree \(i\),
+      with the spatial layer as predictor variable, and the \(\epsilon_{x,i}\) to the residuals.
+      To keep the model as parsimonious as possible, we apply a model selection process on the <a href="https://en.wikipedia.org/wiki/Bayesian_information_criterion">Bayesian Information Criterion</a> resulting from the regression, in order to get rid of the non-significant fixed-effect parameters.
+      Depending on the retained parameters in the end of the process, we classify the gene as zonated (if there's at least \(\mu_1\) or \(\mu_2\) which is significant) or flat.
+      </p>
+
+      </p>
+       <h5 style="margin:10px 0px 10px 20px;">Regression on the temporal profiles</h5>
+       <p style="margin:0px 0px 0px 20px;">
+       In order to assess the oscillatory character of the selected gene for a given layer, we apply a linear regression using ordinary least squares on the data using a simple oscillatory model (one linear model per layer):
+       $$Y_t = \mu +  a cos(\omega t) + b sin(\omega t) + \epsilon_{t}$$
+       \(\mu\) represents the intercept, \(\omega\) is the angular frequency (assumed equal to \(\frac{2\pi}{24}rad.h^{-1}\)), and the combination of the coefficients \(a\) and \(b\) enables to compute both the phase and the amplitude of the oscillations.
+       These two coefficients can therefore be represented on a polar chart, where the distance is proportional to the importance of the oscillations. Note that this model is not hierarchical, since the data is not structured in this case (every timepoint corresponds to a different animal).
+       In the app, this polar chart also comes with ellipses of different sizes (depending on the layer) surrounding the datapoints. These ellipses represent the quality of the fit, computed from the residuals.
+       The smaller the ellipse, the better the fit, and the more important the confidence we have in the regression. Using a simple ANOVA, this first model can be compared to a flat model \(f(t) = \mu\) in order to get an idea of the confidence we have in the oscillatory character of the gene.
+      </p>
+
+       <h5 style="margin:10px 0px 10px 20px;">Regression on the spatiotemporal profile</h5>
+       <p style="margin:0px 0px 0px 20px;">
+       We finally combine the two previously used linear regression in order to build a more complex linear regression, imposing both temporal and spatial constraints, in order to classify the complete gene profile (all layers and time conditions are analysed at once).
+       The mixed model we use is the following:
+       $$\left\{
+          \begin{array}{l}
+         Y_{x,t,i} = \mu_{i} +\mu(x) +  a(x) cos(\omega t) + b(x) sin(\omega t)+ \epsilon_{x,t,i}  \\
+         \mu(x) = \mu_0 + \mu_1 P_1(x) + \mu_2 P_2(x)  \\
+         a(x) = a_0 +  a_1 P_1(x) + a_2 P_2(x)  \\
+         b(x) = b_0 +  b_1 P_1(x) + b_2 P_2(x)
+          \end{array}
+         \right.
+         $$
+         This amounts to a total of 9 fixed-effect parameters (as a random-effect parameter, \(\mu_{i}\) is always kept), but most of them are non-significant most of the time. In theory, \(2^{9}\) linear (sub)-models could be generated from these equations. However, in order
+         to keep the model consistent with real data, we impose the \(a_i\) and \(b_i\) to be systematically paired, such that the phase can always be rebuilt from their combination; this reduces the number of parameters to only 6. We then apply a model
+         selection process and conserve the best linear model. In order to prevent any overfitting of the gene profiles, we also added a noise penalty \(\sigma_0 = 0.15\) to the estimated noise σ in the final expression of the data log-likelihood.
+      </p>
+<!--
+      <h2 style="margin:40px 0px 0px 0px;">Clustering according to the retained model</h2>
+       <p>
+         The genes can be clustered using the regression on the spatiotemporal profiles. The resulting categories are:
+       <ul  style="margin:10px 0px 10px 0px;">
+         <li><b>zonated (Z)</b>: only some or all \(\mu_j\) coefficients are kept after selection</li>
+         <li><b>rhythmic (R)</b>: only the coefficients \(\mu_0\), \(a_0\) and \(b_0\) are kept after selection</li>
+         <li><b>independant (Z+R)</b>: the coefficients \(\mu_0\), \(a_0\), \(b_0\) and some of the zonation coefficients \(\mu_j\) are kept after selection</li>
+         <li><b>interacting (ZxR)</b>: at least one of the \(a_j\) and \(b_j\) (\(j \neq 0\)) coefficients is retained after selection</li>
+         <li><b>flat (F)</b>: only \(\mu_0\) is kept after selection</li>
+       </ul>
+       </p>
+       <p>
+       In each of these categories, the genes are sorted according to the amount of variance explained by the model.
+       Note that the size effects are not taken into account in this analysis. This means that a gene can be attributed to the "purely rhythmic" category, have a very high coefficient of determination (e.g. 0.99) but still present very small oscillations.
+-->
+  <!--
+    <h2 style="margin:40px 0px 0px 0px;">Result of the analysis</h2>
+    <p> The final classification of the genes can be downloaded below: </p> -->
+  <!--  <p class="lead" style="text-align:center;"><a href="https://drive.google.com/file/d/1tBkYIA0AiHzTTDuTXCyR5yNRCTHdGVAj/view?usp=sharing">Download the analysis</a></p>-->
+  <!--  <p >This xlsx file contains the list of genes belonging to each class, with a worksheet for each different class. For each gene, the value of the conserved parameters, as well with the AIC and BIC, is given.</p>-->
+
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+  </body>
+
+</html>

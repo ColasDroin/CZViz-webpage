@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="CircaViz: a web app for circadian visualization">
+    <meta name="author" content="Colas Droin">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>CZViz: a web app for Circadian Zonation Visualization</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      body {
+        padding-top: 54px;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 56px;
+        }
+      }
+      p {
+        text-align: justify;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a href="index.html"><img style="height:40px" src="img/logo_UPNA_transparent2.png"/></a>
+        <a class="navbar-brand" href="index.html">CZViz: a web app for Circadian Zonation Visualization</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">CZViz
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="analysis.html">Analysis</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="doc.html">Documentation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="mt-5">Documentation</h1>
+        </div>
+      </div>
+      <p style="margin:40px 0px 0px 0px;">The use of CZViz is normally quite intuitive, and the user in a hurry should be able to skip the documentation without encountering any problem.
+      However, for more specific information, you can refer to the documentation below.
+      </p>
+      <h2 style="margin:40px 0px 0px 0px;">App initialization</h2>
+      <p>The app automatically initializes itself when loading the corresponding <em>Home</em> webpage of this website. If the app is stuck on for more than a couple of seconds "<b>Loading...</b>", a page refresh should solve the problem.
+      </p>
+      <h2 style="margin:40px 0px 0px 0px;">Gene selection</h2>
+
+      <p>You can choose your gene on interest in the panel on the right. Three alternative representations are then proposed: either the spatial scatterplot profile of the gene, represented for all the timepoints and all replicates,
+      either the temporal scatterplot profile of the gene, represented for each layer, either both at the same time in a 3D graph.
+      For each of these representations, the average among the replicates, for a given time or space condition, is also given as a line.
+      <!--It is possible to switch between the linear and logarithmic representations using the corresponding boolean switch button. Similarly, you can switch between an adjusted scale (with a range starting close to the minimum of the curve, and ending close to the maximum), and an absolute scale.
+      Finally, you can decide to work directly with the non-transformed version of the data using the "Linear Data" swicth.--></p>
+
+        <p> Finally, a static table representing the gene data appears at the bottom right of the page.  </p>
+
+
+
+      <h2 style="margin:40px 0px 0px 0px;">Statistical analysis</h2>
+      <p>
+      The tab <i>Statistical testing</i> enables for applying different types of linear regression on the data using ordinary least squares (see the <a href="analysis.html">Analysis</a> page). You can choose the desired type of analysis using the dropdown menu on the right.
+      </p>
+      <p>
+      For the spatial regression, a representation of the spatial profile of the gene, including all replicates, is given for each time condition. The model prediction is plotted as a blue line.
+      If the retained model is not flat, the the parameters kept associated to the zonation are given.
+      </p>
+      <p>
+      For the temporal regression, three representations are proposed. First, a sum up of the phase and amplitude of the gene for each layer is given in a polar chart. Similarly, the average temporal profile across each layer is also given.
+      Finally, a representation of the temporal profile of the gene is given, including all replicates, with the model prediction as an orange line.
+      If the retained model is not flat, the p-value associated to the rhythmicity is given, as well with the parameters kept.
+      </p>
+      <p>
+      For the spatiotemporal regression, one or two representation(s) is (are) proposed, depending if the retained model has rhythmic parameters evolving with the layers.
+      The global fit is always given, as a 2D surface going through the experimental points.
+      If the model has evolving rhythmic parameters  (that is, if the phase of the signal is defined and variable, i.e. \( \exists i \ne 0 | (a_i, b_i) \ne (0,0) \) ), a polar chart representing the fit of the conserved model (as a curve) against the individual temporal fits (as markers) is given.
+      If the retained model is not flat, the p-value associated to the model is given, as well with the parameters kept.
+      </p>
+
+
+
+      <h2 style="margin:40px 0px 0px 0px;">Validation</h2>
+      <p>
+      In order to assess the validity of the data, it can be useful to compare the loaded dataset to a previously existing dataset.
+      The tool implemented in this tab offers the possibility to make profile comparisons for all the common genes of the current dataset and the dataset coming from <a href = "https://www.pnas.org/content/112/47/E6579"> Atger and al.</a>
+      It is accessible <i>via</i> the dropdown menu of the tab <i>Statistical testing</i>.
+      </p>
+
+      <p>Since the dataset from the current study has a supplementary spatial dimension, gene profiles are not directly comparable. Moreoever, pre-formatting of the two datasets is the same, leading to different units and range of expression.
+      Two steps are thus involved, in order to obtain comparable data. </p>
+      <ul  style="margin:10px 0px 10px 20px;">
+        <li>The different layers are averaged using a a weighted arithmetic mean. Weights are optimized in order to maximize the global correlation between the gene profiles of the two dataset. </li>
+        <li>Both datasets are standardized : for each gene profile, the mean is removed, and the resulting datapoints are divided by the standard deviation of the profile.</li>
+      </ul>
+      <p>
+      The result is represented using both the standardized temporal profiles,
+      as well as a polar chart representing the phase and amplitude obtained from each dataset using a sinusoidal linear regression.
+      </p>
+    </div>
+    <p>  </p>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+  </body>
+
+</html>
